@@ -7,23 +7,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'full_name',
         'email',
+        'password',
         'address',
         'phone',
-        'card_number',
-        'password',
     ];
 
     /**
@@ -33,7 +34,10 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'email_verified_at',
         'remember_token',
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -45,15 +49,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function roles(){
+    public function roles()
+    {
         return $this->belongsToMany(Role::class,'role_users');
     }
 
-    public function products(){
+    public function products()
+    {
         return $this->hasMany(Product::class);
     }
 
-    public function bids(){
+    public function bids()
+    {
         return $this->hasMany(Bid::class);
     }
 }

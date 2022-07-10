@@ -4,22 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Auction extends Model
 {
-    use HasFactory;
-    
+    use HasFactory, SoftDeletes;
+
     protected $table = 'auctions';
 
     protected $fillable = [
         'name',
-        'start_time',
-        'close_time',
         'status',
-        'start_price',
-        'step_price',
-        'highest_price',
-        'winner_id',
+        'start_time',
+        'end_time',
+        'status',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     public function products(){
