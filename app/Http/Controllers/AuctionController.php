@@ -9,14 +9,14 @@ class AuctionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        $a= Auction::all();
+        $data = Auction::all();
         return response()->json([
-            'result'=>'list auction',
-            'a'=>$a
+            'status' => 'success',
+            'data' => $data
         ]);
     }
 
@@ -34,11 +34,16 @@ class AuctionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        return Auction::create($request->all());
+        $data = Auction::create($request->all());
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -81,8 +86,8 @@ class AuctionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
-        return Auction::where('id',$id)->delete();
+        return Auction::where('id', $id)->delete();
     }
 }
