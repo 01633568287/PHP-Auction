@@ -15,17 +15,12 @@ class CreateAuctionsTable extends Migration
     {
         Schema::create('auctions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name',60);
+            $table->unsignedTinyInteger('status');
             $table->dateTime('start_time');
-            $table->dateTime('close_time');
-            $table->string('status', 50);
-            $table->bigInteger('start_price');
-            $table->bigInteger('step_price');
-            $table->bigInteger('highest_price');
-            $table->integer('winner_id');
-            // $table->unsignedBigInteger('winner_id');
-            // $table->foreign('winner_id')->references('user_id')->on('bids');
+            $table->dateTime('end_time');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

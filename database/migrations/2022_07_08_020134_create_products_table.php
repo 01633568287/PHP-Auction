@@ -15,16 +15,18 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('product_name');
-            $table->bigInteger('price');
-            $table->string('image', 500);
+            $table->string('name',50);
+            $table->bigInteger('desirable_price');
+            $table->string('title_image',255);
             $table->text('description');
-            $table->integer('name_active');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('auction_id');
-            $table->foreign('auction_id')->references('id')->on('auctions');
+            $table->boolean('active');
+            $table->bigInteger('start_price');
+            $table->bigInteger('min_step_price');
+            $table->bigInteger('highest_price');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('auction_id')->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
