@@ -9,14 +9,14 @@ class AuctionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $a= Auction::all();
         return response()->json([
             'result'=>'list auction',
-            'a'=>$a
+            'data'=>$a
         ]);
     }
 

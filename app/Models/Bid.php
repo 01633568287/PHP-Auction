@@ -17,13 +17,18 @@ class Bid extends Model
         'auction_id',
     ];
 
-    public function auction()
+    public function auctions()
     {
         return $this->belongsTo(Auction::class);
     }
 
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function products()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

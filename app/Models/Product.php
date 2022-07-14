@@ -36,4 +36,9 @@ class Product extends Model
     {
         return $this->hasOne(productDetail::class);
     }
+
+    public function bids()
+    {
+        return $this->hasMany(Bid::class);
+    }
 }
